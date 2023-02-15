@@ -146,14 +146,10 @@ class ReceiveSharingIntentPlugin : FlutterPlugin, ActivityAware, MethodCallHandl
                 val path = uri?.let{ FileDirectory.getAbsolutePath(applicationContext, it) }
                 if (path != null) {
                     val type = getMediaType(path)
-                    val thumbnail = getThumbnail(path, type)
-                    val duration = getDuration(path, type)
                     JSONArray().put(
                             JSONObject()
                                     .put("path", path)
                                     .put("type", type.ordinal)
-                                    .put("thumbnail", thumbnail)
-                                    .put("duration", duration)
                     )
                 } else null
             }
@@ -163,13 +159,9 @@ class ReceiveSharingIntentPlugin : FlutterPlugin, ActivityAware, MethodCallHandl
                     val path = FileDirectory.getAbsolutePath(applicationContext, uri)
                             ?: return@mapNotNull null
                     val type = getMediaType(path)
-                    val thumbnail = getThumbnail(path, type)
-                    val duration = getDuration(path, type)
                     return@mapNotNull JSONObject()
                             .put("path", path)
                             .put("type", type.ordinal)
-                            .put("thumbnail", thumbnail)
-                            .put("duration", duration)
                 }?.toList()
                 if (value != null) JSONArray(value) else null
             }
